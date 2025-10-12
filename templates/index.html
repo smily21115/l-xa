@@ -3,5 +3,31 @@
 {% block heading %}Välkommen{% endblock %}
 
 {% block content %}
-<p>Hej och välkommen till vår webbplats! Här hittar du information om oss och hur du kan kontakta oss.</p>
+  <p>Hej och välkommen till vår webbplats! Här hittar du information om oss och hur du kan kontakta oss.</p>
+
+  <hr>
+
+  <h2>Skriv i Gästboken</h2>
+  <form action="/add" method="post">
+    <label for="name">Namn:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="message">Meddelande:</label><br>
+    <textarea id="message" name="message" rows="4" cols="40" required></textarea><br><br>
+
+    <button type="submit">Skicka</button>
+  </form>
+
+  <h2>Tidigare inlägg</h2>
+  {% if guestbook %}
+    {% for entry in guestbook %}
+      <div style="border:1px solid #ccc; padding:10px; margin:10px 0; border-radius:8px;">
+        <strong>{{ entry.name }}</strong>
+        <em>({{ entry.time }})</em>
+        <p>{{ entry.message }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>Inga inlägg ännu. Bli först att skriva något!</p>
+  {% endif %}
 {% endblock %}
